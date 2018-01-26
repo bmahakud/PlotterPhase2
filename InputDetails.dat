@@ -1,0 +1,157 @@
+#Original Author: Bibhuprasad Mahakud
+#Tata Institute of Fundamental Research, Mumbai
+
+####    Name of tree    #####
+treeName_sig="TreeMaker/Phase2Tree"
+treeName_bkg="TreeMaker/Phase2Tree"
+treeName_data="TreeMaker/Phase2Tree"
+#
+
+#provide path from /store/..
+FileInlxplusEOS="No" 
+
+#Provide path from /eos/uscms/store/..
+FileInlpcEOS="Yes"
+
+
+fileLocation_sig="/eos/uscms/store/user/bmahakud/HGCALLHCCTuples_v1/"
+fileLocation_bkg="/eos/uscms/store/user/bmahakud/HGCALLHCCTuples_v1/"
+fileLocation_data="/eos/uscms/store/user/bmahakud/HGCALLHCCTuples_v1/"
+#
+####incase you are putting xrootrd path below put the filelocation above without xrootdpath
+store_mc_sig = "root://cmseos.fnal.gov//store/user/bmahakud/HGCALLHCCTuples_v1/"
+store_mc_bkg = "root://cmseos.fnal.gov//store/user/bmahakud/HGCALLHCCTuples_v1/"
+store_data = "root://cmseos.fnal.gov//store/user/bmahakud/HGCALLHCCTuples_v1/"
+#
+#
+#####    Name of samples #####
+#
+#
+list_mc_sig = ["GENSIMnew.RSGluonToTT_M-3000_TuneCUETP8M1_14TeV-pythia8v2-v1_PU200*_.root","GENSIMnew.RSGluonToTT_M-4000_TuneCUETP8M1_14TeV-pythia8v2-v1_PU200*_.root","GENSIMnew.RSGluonToTT_M-5000_TuneCUETP8M1_14TeV-pythia8v2-v1_PU200*_.root"]
+#,"GENSIM.VBF_BulkGravToWW_narrow_M-2000_14TeV-madgraphGENSIMRECO_NoPU*_.root","GENSIM.VBFToHHTo4B_SM_14TeV-madgraph-pythia8GENSIMRECO_PU200*_.root"]
+list_mc_sigNames =["RSG3TeVP2","RSG4TeVP2","RSG5TeVP2"]
+#,"RSGr2TeVP2","VBFToHHP2"]
+sig_cuts=[]
+list_mc_sigNames_cuts ={"RSG3TeVP2":[],"RSG4TeVP2":[],"RSG5TeVP2":[]}
+#,"RSGr2TeVP2":[],"VBFToHHP2":[]}
+
+#
+#
+#
+list_mc_bkg = ["GENSIMnew.TT_TuneCUETP8M2T4_14TeV-powheg-pythia8v2-v1_PU200*_.root","GENSIMnew.TT_Mtt1500toInf_TuneCUETP8M1_14TeV-powheg-pythia8v2-v1_PU200*_.root","GENSIMnew.QCD_Flat_Pt-15to7000_TuneCUETP8M1_14TeV_pythia8v2-v1_PU200*_.root","GENSIMnew.QCD_Mdijet-1000toInf_TuneCUETP8M1_14TeV-pythia8v2-v1_PU200*_.root"]
+list_mc_bkgNames = ["TTinclP2","TTMttP2","QCDFlatP2","QCDMjjP2"]
+bkg_cuts=[]
+list_mc_bkgNames_cuts ={"TTinclP2":[],"TTMttP2":[],"QCDFlatP2":[],"QCDMjjP2":[]}
+
+#
+#
+#
+list_data = ["GENSIMnew.TT_Mtt1500toInf_TuneCUETP8M1_14TeV-powheg-pythia8v2-v1_PU20095_.root"]
+list_dataNames = ["Data"]
+data_cuts=[]
+list_dataNames_cuts ={"Data":data_cuts}
+
+
+
+#double and integer values
+#one value per event type variables, names should be same as exactly in the tree , code wll create histograms for these
+list_oneVariables=["npu","NumJets","Jet1Eta","Jet2Eta","Jet1Phi","Jet2Phi","Jet1Pt","Jet2Pt","Jet1Mass","Jet2Mass","Jet1SDMass","Jet2SDMass","Jet1SDMassv1","Jet2SDMassv1","Jet1Tau32","Jet2Tau32","Jet1Tau21","Jet2Tau21","Jet0MaxSubb","Jet1MaxSubb","Jet0SDsubjet0bdisc","Jet0SDsubjet1bdisc","Jet1SDsubjet0bdisc","Jet1SDsubjet1bdisc","Jet0Mult","Jet1Mult","Jet0CHF","Jet1CHF","UserDef_RSGPt","UserDef_RSGMass","UserDef_DeltaRJ1J2","UserDef_DeltaEtaJ1J2","UserDef_DeltaPhiJ1J2"]
+
+list_VarsFill=["npu","NumAK8Jets","Jet0->at(0).Eta()","Jet1->at(0).Eta()","Jet0->at(0).Phi()","Jet1->at(0).Phi()","Jet0->at(0).Pt()","Jet1->at(0).Pt()","Jet0->at(0).M()","Jet1->at(0).M()","Jet0SDmass","Jet1SDmass","Jet0SDmass*read.Jet0L2RelativeCorr","Jet1SDmass*read.Jet1L2RelativeCorr","Jet0Tau32","Jet1Tau32","Jet0Tau2/read.Jet0Tau1","Jet1Tau2/read.Jet1Tau1","Jet0SDmaxbdisc","Jet1SDmaxbdisc","Jet0SDsubjet0bdisc","Jet0SDsubjet1bdisc","Jet1SDsubjet0bdisc","Jet1SDsubjet1bdisc","Jet0Mult","Jet1Mult","Jet0CHF","Jet1CHF","UserDef_RSGPt","UserDef_RSGMass","UserDef_DeltaRJ1J2","UserDef_DeltaEtaJ1J2","UserDef_DeltaPhiJ1J2"]
+
+list_Baseline_cuts=["Jet0->size()>0 &&","Jet1->size()>0 &&","Jet0->at(0).Pt()>400.0 &&","Jet1->at(0).Pt()>400.0 &&","Jet0->at(0).Eta()<2.4 &&","Jet1->at(0).Eta()<2.4"]
+#,"Jet0->at(0).Pt()>500. &&","Jet1->at(0).Pt() > 100."]
+# && ","Jet0Tau32>0.0 &&","Jet1Tau32>0.0 &&","Jet0SDmaxbdisc>0.0 &&","Jet1SDmaxbdisc>0.0 &&","Jet0SDmass > 0.0 &&","Jet1SDmass > 0.0"]
+list_Categories =["A","B","C","D","E","F"];
+
+
+Usedefcategories="Yes"
+#No
+#list_defCategories = ["read.Jet0->at(0).Pt()>500. && fabs(read.Jet0->at(0).Eta())<0.7","read.Jet0->at(0).Pt()>500. && read.Jet0->at(0).Pt()<550. && fabs(read.Jet0->at(0).Eta())<0.7","read.Jet0->at(0).Pt()>550. && read.Jet0->at(0).Pt()<600.&& fabs(read.Jet0->at(0).Eta())<0.7","read.Jet0->at(0).Pt()>600. && read.Jet0->at(0).Pt()<650. && fabs(read.Jet0->at(0).Eta())<0.7","read.Jet0->at(0).Pt()>650. && read.Jet0->at(0).Pt()<700. && fabs(read.Jet0->at(0).Eta())<0.7","read.Jet0->at(0).Pt()>500. && fabs(read.Jet0->at(0).Eta())>1.9 && fabs(read.Jet0->at(0).Eta())<2.4","read.Jet0->at(0).Pt()>500. && read.Jet0->at(0).Pt()<550.&& fabs(read.Jet0->at(0).Eta())>1.9 && fabs(read.Jet0->at(0).Eta())<2.4","read.Jet0->at(0).Pt()>550. && read.Jet0->at(0).Pt()<600. && fabs(read.Jet0->at(0).Eta())>1.9 && fabs(read.Jet0->at(0).Eta())<2.4","read.Jet0->at(0).Pt()>600. && read.Jet0->at(0).Pt()<650. && fabs(read.Jet0->at(0).Eta())>1.9 && fabs(read.Jet0->at(0).Eta())<2.4","read.Jet0->at(0).Pt()>650. && read.Jet0->at(0).Pt()<700. && fabs(read.Jet0->at(0).Eta())>1.9 && fabs(read.Jet0->at(0).Eta())<2.4"]
+
+
+list_defCategories = ["read.Jet0->at(0).Pt()>400.","read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0","read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65","read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0 && read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65","read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0 && read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65 && read.Jet0SDmaxbdisc > 0.84 && read.Jet1SDmaxbdisc > 0.84","read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0 && read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65 && read.Jet0SDmaxbdisc > 0.84 && read.Jet1SDmaxbdisc > 0.84","read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0 && read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65 && read.Jet0SDmaxbdisc > 0.84 && read.Jet1SDmaxbdisc > 0.84","read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0 && read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65 && read.Jet0SDmaxbdisc > 0.84 && read.Jet1SDmaxbdisc > 0.84"]
+
+
+list_defCategories =["read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0 && read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65 && catA==true","read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0 && read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65 && catB==true","read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0 && read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65 && catC==true","read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0 && read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65 && catD==true","read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0 && read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65 && catE==true","read.Jet0SDmass > 105.0 && read.Jet0SDmass< 210. && read.Jet1SDmass>105.0 && read.Jet1SDmass < 210.0 && read.Jet0Tau32 < 0.65 && read.Jet1Tau32 < 0.65 && catF==true"]
+
+
+
+
+Def_UserDef_All=["TLorentzVector Jet1=read.Jet0->at(0);TLorentzVector Jet2=read.Jet1->at(0);TLorentzVector RSG=Jet1+Jet2;double RSGPt=RSG.Pt();return RSGPt;","TLorentzVector Jet1=read.Jet0->at(0);TLorentzVector Jet2=read.Jet1->at(0);TLorentzVector RSG=Jet1+Jet2;double RSGMass=RSG.M();return RSGMass;","TLorentzVector Jet1=read.Jet0->at(0);TLorentzVector Jet2=read.Jet1->at(0);double DeltaR=Jet1.DeltaR(Jet2);return DeltaR;","TLorentzVector Jet1=read.Jet0->at(0);TLorentzVector Jet2=read.Jet1->at(0);double DeltaEta=Jet1.Eta()-Jet2.Eta();return DeltaEta;","TLorentzVector Jet1=read.Jet0->at(0);TLorentzVector Jet2=read.Jet1->at(0);double DeltaPhi=Jet1.Eta()-Jet2.Phi();return DeltaPhi;","return 1;","return 1;","return 1;","return 1;"]
+#Def_UserDef_RSGMass="TLorentzVector Jet1=read.AK8PFJets->at(0);TLorentzVector Jet2=read.AK8PFJets->at(1);TLorentzVector RSG=Jet1+Jet2;double RSGMass=RSG.M();return RSGMass;"
+#Def_UserDef_DeltaRJ1J2="TLorentzVector Jet1=read.AK8PFJets->at(0);TLorentzVector Jet2=read.AK8PFJets->at(1);double DeltaR=Jet1.DeltaR(Jet2);return DeltaR;"
+
+list_npu_range=[100.0  , 101.0  , 102.0  , 103.0  , 104.0  , 105.0  , 106.0  , 107.0  , 108.0  , 109.0  , 110.0  , 111.0  , 112.0  , 113.0  , 114.0  , 115.0  , 116.0  , 117.0  , 118.0  , 119.0  , 120.0  , 121.0  , 122.0  , 123.0  , 124.0  , 125.0  , 126.0  , 127.0  , 128.0  , 129.0  , 130.0  , 131.0  , 132.0  , 133.0  , 134.0  , 135.0  , 136.0  , 137.0  , 138.0  , 139.0  , 140.0  , 141.0  , 142.0  , 143.0  , 144.0  , 145.0  , 146.0  , 147.0  , 148.0  , 149.0  , 150.0  , 151.0  , 152.0  , 153.0  , 154.0  , 155.0  , 156.0  , 157.0  , 158.0  , 159.0  , 160.0  , 161.0  , 162.0  , 163.0  , 164.0  , 165.0  , 166.0  , 167.0  , 168.0  , 169.0  , 170.0  , 171.0  , 172.0  , 173.0  , 174.0  , 175.0  , 176.0  , 177.0  , 178.0  , 179.0  , 180.0  , 181.0  , 182.0  , 183.0  , 184.0  , 185.0  , 186.0  , 187.0  , 188.0  , 189.0  , 190.0  , 191.0  , 192.0  , 193.0  , 194.0  , 195.0  , 196.0  , 197.0  , 198.0  , 199.0  , 200.0  , 201.0  , 202.0  , 203.0  , 204.0  , 205.0  , 206.0  , 207.0  , 208.0  , 209.0  , 210.0  , 211.0  , 212.0  , 213.0  , 214.0  , 215.0  , 216.0  , 217.0  , 218.0  , 219.0  , 220.0  , 221.0  , 222.0  , 223.0  , 224.0  , 225.0  , 226.0  , 227.0  , 228.0  , 229.0  , 230.0  , 231.0  , 232.0  , 233.0  , 234.0  , 235.0  , 236.0  , 237.0  , 238.0  , 239.0  , 240.0  , 241.0  , 242.0  , 243.0  , 244.0  , 245.0  , 246.0  , 247.0  , 248.0  , 249.0  , 250.0  , 251.0  , 252.0  , 253.0  , 254.0  , 255.0  , 256.0  , 257.0  , 258.0  , 259.0  , 260.0  , 261.0  , 262.0  , 263.0  , 264.0  , 265.0  , 266.0  , 267.0  , 268.0  , 269.0  , 270.0  , 271.0  , 272.0  , 273.0  , 274.0  , 275.0  , 276.0  , 277.0  , 278.0  , 279.0  , 280.0  , 281.0  , 282.0  , 283.0  , 284.0  , 285.0  , 286.0  , 287.0  , 288.0  , 289.0  , 290.0  , 291.0  , 292.0  , 293.0  , 294.0  , 295.0  , 296.0  , 297.0  , 298.0  , 299.0,300]
+
+list_UserDef_JetReso1_range=[-100,0,100]
+
+
+
+list_UserDef_JetReso2_range=list_UserDef_JetReso1_range
+list_UserDef_JetReso3_range=list_UserDef_JetReso1_range
+list_UserDef_JetReso4_range=list_UserDef_JetReso1_range
+
+list_UserDef_DeltaRJ1J2_range=[-5.0  , -4.9  , -4.8  , -4.7  , -4.6  , -4.5  , -4.4  , -4.3  , -4.2  , -4.1  , -4.0  , -3.9  , -3.8  , -3.7  , -3.6  , -3.5  , -3.4  , -3.3  , -3.2  , -3.1  , -3.0  , -2.9  , -2.8  , -2.7  , -2.6  , -2.5  , -2.4  , -2.3  , -2.2  , -2.1  , -2.0  , -1.9  , -1.8  , -1.7  , -1.6  , -1.5  , -1.4  , -1.3  , -1.2  , -1.1  , -1.0  , -0.9  , -0.8  , -0.7  , -0.6  , -0.5  , -0.4  , -0.3  , -0.2  , -0.1  , 0.0  , 0.1  , 0.2  , 0.3  , 0.4  , 0.5  , 0.6  , 0.7  , 0.8  , 0.9  , 1.0  , 1.1  , 1.2  , 1.3  , 1.4  , 1.5  , 1.6  , 1.7  , 1.8  , 1.9  , 2.0  , 2.1  , 2.2  , 2.3  , 2.4  , 2.5  , 2.6  , 2.7  , 2.8  , 2.9  , 3.0  , 3.1  , 3.2  , 3.3  , 3.4  , 3.5  , 3.6  , 3.7  , 3.8  , 3.9  , 4.0  , 4.1  , 4.2  , 4.3  , 4.4  , 4.5  , 4.6  , 4.7  , 4.8  , 4.9  ,5.0]
+
+
+list_UserDef_DeltaEtaJ1J2_range=list_UserDef_DeltaRJ1J2_range
+list_UserDef_DeltaPhiJ1J2_range=list_UserDef_DeltaRJ1J2_range
+
+list_NumJets_range=[0.0  , 1.0  , 2.0  , 3.0  , 4.0  , 5.0  , 6.0  , 7.0  , 8.0  , 9.0, 10.]
+list_Jet1Eta_range=[-2.4  , -2.16  , -1.92  , -1.68  , -1.44  , -1.2  , -0.96  , -0.72  , -0.48  , -0.24  , 0.0  , 0.24  , 0.48  , 0.72  , 0.96  , 1.2  , 1.44  , 1.68  , 1.92  , 2.16, 2.4]
+list_Jet2Eta_range=[-2.4  , -2.16  , -1.92  , -1.68  , -1.44  , -1.2  , -0.96  , -0.72  , -0.48  , -0.24  , 0.0  , 0.24  , 0.48  , 0.72  , 0.96  , 1.2  , 1.44  , 1.68  , 1.92  , 2.16, 2.4]
+list_Jet1Phi_range=[-4.0  , -3.6  , -3.2  , -2.8  , -2.4  , -2.0  , -1.6  , -1.2  , -0.8  , -0.4  , 0.0  , 0.4  , 0.8  , 1.2  , 1.6  , 2.0  , 2.4  , 2.8  , 3.2  , 3.6  ,4.0]
+list_Jet2Phi_range=[-4.0  , -3.6  , -3.2  , -2.8  , -2.4  , -2.0  , -1.6  , -1.2  , -0.8  , -0.4  , 0.0  , 0.4  , 0.8  , 1.2  , 1.6  , 2.0  , 2.4  , 2.8  , 3.2  , 3.6  ,4.0]
+
+
+#list_cutCombinationsHist =["","Barrel","Endcap"];
+
+#Vars_With_diffCuts ={"HT":[["",""],[]],"MHT":[[],[]],"NJets":[[],[]],"BTags":[[],[]],"DeltaPhi1":[[],[]],"LeadJetPt":[["Barrel","Endcap"],["Jets->at(0).Eta()<1.44","Jets->at(0).Eta()>1.44"]]}
+list_Jet1Pt_range=[0 ,  100 ,  200 ,  300 ,  400 ,  500 ,  600 ,  700 ,  800 ,  900 ,  1000 ,  1100 ,  1200 ,  1300 ,  1400 ,  1500 ,  1600 ,  1700 ,  1800 ,  1900 ,  2000 ,  2100 ,  2200 ,  2300 ,  2400 ,  2500 ,  2600 ,  2700 ,  2800 ,  2900,3000]
+list_Jet2Pt_range=list_Jet1Pt_range
+list_Jet1Mass_range=[0 ,  10 ,  20 ,  30 ,  40 ,  50 ,  60 ,  70 ,  80 ,  90 ,  100 ,  110 ,  120 ,  130 ,  140 ,  150 ,  160 ,  170 ,  180 ,  190 ,  200 ,  210 ,  220 ,  230 ,  240 ,  250 ,  260 ,  270 ,  280 ,  290 ,  300 ,  310 ,  320 ,  330 ,  340 ,  350 ,  360 ,  370 ,  380 ,  390 ,  400 ,  410 ,  420 ,  430 ,  440 ,  450 ,  460 ,  470 ,  480 ,  490 ,500]
+list_Jet2Mass_range=list_Jet1Mass_range
+list_Jet1SDMass_range=list_Jet1Mass_range
+list_Jet2SDMass_range=list_Jet1Mass_range
+
+list_Jet1SDMassv1_range=list_Jet1Mass_range
+list_Jet2SDMassv1_range=list_Jet1Mass_range
+
+list_Jet1GenJetPt_range=list_Jet1Pt_range
+list_Jet1GenJetMass_range=list_Jet1Mass_range
+
+list_Jet1Tau32_range=[0.0 ,  0.02 ,  0.04 ,  0.06 ,  0.08 ,  0.1 ,  0.12 ,  0.14 ,  0.16 ,  0.18 ,  0.2 ,  0.22 ,  0.24 ,  0.26 ,  0.28 ,  0.3 ,  0.32 ,  0.34 ,  0.36 ,  0.38 ,  0.4 ,  0.42 ,  0.44 ,  0.46 ,  0.48 ,  0.5 ,  0.52 ,  0.54 ,  0.56 ,  0.58 ,  0.6 ,  0.62 ,  0.64 ,  0.66 ,  0.68 ,  0.7 ,  0.72 ,  0.74 ,  0.76 ,  0.78 ,  0.8 ,  0.82 ,  0.84 ,  0.86 ,  0.88 ,  0.9 ,  0.92 ,  0.94 ,  0.96 ,  0.98,1]
+list_Jet2Tau32_range=list_Jet1Tau32_range
+
+list_Jet1Tau21_range=list_Jet1Tau32_range
+list_Jet2Tau21_range=list_Jet1Tau32_range
+
+list_Jet0MaxSubb_range=list_Jet1Tau32_range
+list_Jet1MaxSubb_range=list_Jet1Tau32_range
+
+
+list_Jet0SDsubjet0bdisc_range=list_Jet1Tau32_range
+list_Jet0SDsubjet1bdisc_range=list_Jet1Tau32_range
+list_Jet1SDsubjet0bdisc_range=list_Jet1Tau32_range
+list_Jet1SDsubjet1bdisc_range=list_Jet1Tau32_range
+
+
+#list_Jet0Mult_range=[0.0  , 1.0  , 2.0  , 3.0  , 4.0  , 5.0  , 6.0  , 7.0  , 8.0  , 9.0  , 10.0  , 11.0  , 12.0  , 13.0  , 14.0  , 15.0  , 16.0  , 17.0  , 18.0  , 19.0  , 20.0  , 21.0  , 22.0  , 23.0  , 24.0  , 25.0  , 26.0  , 27.0  , 28.0  , 29.0  , 30.0  , 31.0  , 32.0  , 33.0  , 34.0  , 35.0  , 36.0  , 37.0  , 38.0  , 39.0  , 40.0  , 41.0  , 42.0  , 43.0  , 44.0  , 45.0  , 46.0  , 47.0  , 48.0  , 49.0  , 50.0  , 51.0  , 52.0  , 53.0  , 54.0  , 55.0  , 56.0  , 57.0  , 58.0  , 59.0  , 60.0  , 61.0  , 62.0  , 63.0  , 64.0  , 65.0  , 66.0  , 67.0  , 68.0  , 69.0  , 70.0  , 71.0  , 72.0  , 73.0  , 74.0  , 75.0  , 76.0  , 77.0  , 78.0  , 79.0  , 80.0  , 81.0  , 82.0  , 83.0  , 84.0  , 85.0  , 86.0  , 87.0  , 88.0  , 89.0  , 90.0  , 91.0  , 92.0  , 93.0  , 94.0  , 95.0  , 96.0  , 97.0  , 98.0  , 99.0  , 100.0  , 101.0  , 102.0  , 103.0  , 104.0  , 105.0  , 106.0  , 107.0  , 108.0  , 109.0  , 110.0  , 111.0  , 112.0  , 113.0  , 114.0  , 115.0  , 116.0  , 117.0  , 118.0  , 119.0  , 120.0  , 121.0  , 122.0  , 123.0  , 124.0  , 125.0  , 126.0  , 127.0  , 128.0  , 129.0  , 130.0  , 131.0  , 132.0  , 133.0  , 134.0  , 135.0  , 136.0  , 137.0  , 138.0  , 139.0  , 140.0  , 141.0  , 142.0  , 143.0  , 144.0  , 145.0  , 146.0  , 147.0  , 148.0  , 149.0, 150.]
+
+list_Jet0Mult_range=[0.0  , 5.0  , 10.0  , 15.0  , 20.0  , 25.0  , 30.0  , 35.0  , 40.0  , 45.0  , 50.0  , 55.0  , 60.0  , 65.0  , 70.0  , 75.0  , 80.0  , 85.0  , 90.0  , 95.0  , 100.0  , 105.0  , 110.0  , 115.0  , 120.0  , 125.0  , 130.0  , 135.0  , 140.0  , 145.0  , 150.0  , 155.0  , 160.0  , 165.0  , 170.0  , 175.0  , 180.0  , 185.0  , 190.0  , 195.0  , 200.0  , 205.0  , 210.0  , 215.0  , 220.0  , 225.0  , 230.0  , 235.0  , 240.0  , 245.0  , 250.0  , 255.0  , 260.0  , 265.0  , 270.0  , 275.0  , 280.0  , 285.0  , 290.0  , 295.0  , 300.0  , 305.0  , 310.0  , 315.0  , 320.0  , 325.0  , 330.0  , 335.0  , 340.0  , 345.0  , 350.0  , 355.0  , 360.0  , 365.0  , 370.0  , 375.0  , 380.0  , 385.0  , 390.0  , 395.0  , 400.0  , 405.0  , 410.0  , 415.0  , 420.0  , 425.0  , 430.0  , 435.0  , 440.0  , 445.0  , 450.0  , 455.0  , 460.0  , 465.0  , 470.0  , 475.0  , 480.0  , 485.0  , 490.0  , 495.0  , 500.0  , 505.0  , 510.0  , 515.0  , 520.0  , 525.0  , 530.0  , 535.0  , 540.0  , 545.0  , 550.0  , 555.0  , 560.0  , 565.0  , 570.0  , 575.0  , 580.0  , 585.0  , 590.0  , 595.0  , 600.0  , 605.0  , 610.0  , 615.0  , 620.0  , 625.0  , 630.0  , 635.0  , 640.0  , 645.0  , 650.0  , 655.0  , 660.0  , 665.0  , 670.0  , 675.0  , 680.0  , 685.0  , 690.0  , 695.0  , 700.0  , 705.0  , 710.0  , 715.0  , 720.0  , 725.0  , 730.0  , 735.0  , 740.0  , 745.0  , 750.0  , 755.0  , 760.0  , 765.0  , 770.0  , 775.0  , 780.0  , 785.0  , 790.0  , 795.0  , 800.0  , 805.0  , 810.0  , 815.0  , 820.0  , 825.0  , 830.0  , 835.0  , 840.0  , 845.0  , 850.0  , 855.0  , 860.0  , 865.0  , 870.0  , 875.0  , 880.0  , 885.0  , 890.0  , 895.0  , 900.0  , 905.0  , 910.0  , 915.0  , 920.0  , 925.0  , 930.0  , 935.0  , 940.0  , 945.0  , 950.0  , 955.0  , 960.0  , 965.0  , 970.0  , 975.0  , 980.0  , 985.0  , 990.0  , 995.0,1000.0]
+
+
+list_Jet1Mult_range=list_Jet0Mult_range
+
+
+list_Jet0CHF_range=list_Jet1Tau32_range
+list_Jet1CHF_range=list_Jet1Tau32_range
+
+list_UserDef_RSGPt_range=list_Jet1Pt_range
+list_UserDef_RSGMass_range=[0.0  , 200.0  , 400.0  , 600.0  , 800.0  , 1000.0  , 1200.0  , 1400.0  , 1600.0  , 1800.0  , 2000.0  , 2200.0  , 2400.0  , 2600.0  , 2800.0  , 3000.0  , 3200.0  , 3400.0  , 3600.0  , 3800.0  , 4000.0  , 4200.0  , 4400.0  , 4600.0,  6000.0]
+
+#double xsecWeights[6]={0.00772,1.0,0.0246,1.0,4.79,1};
+
+
+

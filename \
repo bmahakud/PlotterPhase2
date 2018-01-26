@@ -1,0 +1,143 @@
+template <class classInst, class HistogramCreater> class Looper_bkg{
+public:
+
+void Loop(TChain *tr,classInst& read,HistogramCreater hs, string ProcessName);
+
+bool Baseline(TChain *tr,classInst& read,string ProcessName,int iEvent);
+
+bool ProcessCuts(TChain *tr,classInst& read,string ProcessName,int iEvent);
+
+bool One(TChain *tr,classInst& read,string ProcessName,int iEvent);
+
+double UserDef_RSGPt(TChain *tr,classInst& read,string ProcessName,int iEvent);
+double UserDef_RSGMass(TChain *tr,classInst& read,string ProcessName,int iEvent);
+};
+
+template <class classInst,class HistogramCreater> void Looper_bkg<classInst,HistogramCreater>::Loop(TChain *tr,classInst& read,HistogramCreater hs,string ProcessName)
+
+{//looper definition
+
+string processes[6]={ "RSG5TeV"  , "TTinclu"  , "TTMtt"  , "QCDFlat"  , "QCDMjj"  , "Data"  };
+string dataprocesses[1]={ "Data"  };
+double xsecWeights[6]={0.00772,1.0,1.0,1.0,55.0,1};
+//double xsecWeights[6]={0.00772,1.0,0.0246,1.0,4.79,1};
+const int processesSize=6;
+            auto it=std::find(processes,processes+processesSize,ProcessName);
+            int processInt=it-processes;
+       std::cout<<"Total number of entries: "<<tr->GetEntries()<<std::endl;
+
+       for(int iEv=0;iEv<tr->GetEntries();iEv++){// event loop
+
+       tr->GetEntry(iEv);
+
+          if(iEv % 1000==0)std::cout<<"Running on "<<ProcessName<<" event no: "<<iEv<<"---completed : "<<(float(iEv)/float(tr->GetEntries()))*100<<" %"<<std::endl;
+
+            if(Baseline(tr,read,ProcessName,iEv)  && ProcessCuts(tr,read,ProcessName, iEv)){ //Baseline for this processn
+
+            double EventWeight=1;
+            EventWeight=xsecWeights[processInt];//read.Weight;
+if(One(tr,read,ProcessName,iEv)){
+         hs.h_[0][processInt][0]->Fill(read.AK8PFJets->at(0).Pt(),EventWeight); 
+         hs.h_[1][processInt][0]->Fill(read.AK8PFJets->at(1).Pt(),EventWeight); 
+         hs.h_[2][processInt][0]->Fill(read.AK8PFJets->at(0).M(),EventWeight); 
+         hs.h_[3][processInt][0]->Fill(read.AK8PFJets->at(1).M(),EventWeight); 
+         hs.h_[4][processInt][0]->Fill(read.AK8PFSoftdropMass->at(0),EventWeight); 
+         hs.h_[5][processInt][0]->Fill(read.AK8PFSoftdropMass->at(1),EventWeight); 
+         hs.h_[6][processInt][0]->Fill(read.AK8PFtau3->at(0)/read.AK8PFtau2->at(0),EventWeight); 
+         hs.h_[7][processInt][0]->Fill(read.AK8PFtau3->at(1)/read.AK8PFtau2->at(1),EventWeight); 
+         hs.h_[8][processInt][0]->Fill(read.AK8PFtau2->at(0)/read.AK8PFtau1->at(0),EventWeight); 
+         hs.h_[9][processInt][0]->Fill(read.AK8PFtau2->at(1)/read.AK8PFtau1->at(1),EventWeight); 
+         hs.h_[10][processInt][0]->Fill(UserDef_RSGPt(tr,read,ProcessName,iEv),EventWeight); 
+         hs.h_[11][processInt][0]->Fill(UserDef_RSGMass(tr,read,ProcessName,iEv),EventWeight); 
+}
+
+               }//Baseline for this process
+
+       }//event loop
+
+}//looper definition
+
+template <class classInst,class HistogramCreater> bool Looper_bkg<classInst,HistogramCreater>::Baseline(TChain *tr,classInst& read,string ProcessName,int iEvent){
+
+if(
+read. AK8PFJets->size()>1 &&
+read. AK8PFJets->at(1).Pt()>500. &&
+read. AK8PFJets->at(0).Pt() > 500. &&
+(read.AK8PFtau3->at(0)/read.AK8PFtau2->at(0))<0.7 &&
+(read.AK8PFtau3->at(1)/read.AK8PFtau2->at(1))<0.7 &&
+read.AK8PFSoftdropMass->at(0) > 110 &&
+read.AK8PFSoftdropMass->at(1) > 110
+ 
+){
+
+return true;
+
+}
+else{
+return false;
+
+}
+}
+
+template <class classInst,class HistogramCreater> bool Looper_bkg<classInst,HistogramCreater>::ProcessCuts(TChain *tr,classInst& read,string ProcessName,int iEvent){
+
+if(ProcessName=="RSG5TeV"){
+
+return true;
+}
+
+if(ProcessName=="TTMtt"){
+
+return true;
+}
+
+if(ProcessName=="TTinclu"){
+
+return true;
+}
+
+if(ProcessName=="QCDFlat"){
+
+return true;
+}
+
+if(ProcessName=="QCDMjj"){
+
+return true;
+}
+
+if(ProcessName=="Data"){
+
+return true;
+}
+
+return false;
+}
+
+template <class classInst,class HistogramCreater> bool Looper_bkg<classInst,HistogramCreater>::One(TChain *tr,classInst& read,string ProcessName,int iEvent){
+
+return true;
+}
+
+template <class classInst,class HistogramCreater> double Looper_bkg<classInst,HistogramCreater>::UserDef_RSGPt(TChain *tr,classInst& read,string ProcessName,int iEvent){
+TLorentzVector Jet1=read.AK8PFJets->at(0);
+TLorentzVector Jet2=read.AK8PFJets->at(1);
+TLorentzVector RSG=Jet1+Jet2;
+
+double RSGPt=RSG.Pt();
+
+
+return RSGPt;
+}
+
+template <class classInst,class HistogramCreater> double Looper_bkg<classInst,HistogramCreater>::UserDef_RSGMass(TChain *tr,classInst& read,string ProcessName,int iEvent){
+TLorentzVector Jet1=read.AK8PFJets->at(0);
+TLorentzVector Jet2=read.AK8PFJets->at(1);
+TLorentzVector RSG=Jet1+Jet2;
+
+double RSGMass=RSG.M();
+
+return RSGMass;
+
+}
+
