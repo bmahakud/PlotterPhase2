@@ -240,7 +240,7 @@ TPaveText *tpav_txtF = new TPaveText(0.583612,0.6491319,0.8779264,0.9210069,"brN
 
 //plotS3B2D0("t#bar{t} invariant mass [GeV]",tpav_txtD,S1D,"3TeV",S2D,"4TeV",S3D,"5TeV",B1D,"t#bar{t}",B2D,"QCD");
 
-plotS3B2D0("t#bar{t} invariant mass [GeV]",tpav_txtE,S1E,"3TeV",S2E,"4TeV",S3E,"5TeV",B1E,"t#bar{t}",B2E,"QCD");
+//plotS3B2D0("t#bar{t} invariant mass [GeV]",tpav_txtE,S1E,"3TeV",S2E,"4TeV",S3E,"5TeV",B1E,"t#bar{t}",B2E,"QCD");
 
 //plotS3B2D0("t#bar{t} invariant mass [GeV]",tpav_txtF,S1F,"3TeV",S2F,"4TeV",S3F,"5TeV",B1F,"t#bar{t}",B2F,"QCD");
 

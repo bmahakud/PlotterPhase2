@@ -1,0 +1,47 @@
+TFile *flimitF=new TFile("LimitFRS3.root","REFREATE");
+
+  S1F->SetName("signalF"); 
+  B1F->SetName("ttbarF");
+  B2F->SetName("QFDF");
+  S1F->SetTitle("signalF"); 
+  B1F->SetTitle("ttbarF");
+  B2F->SetTitle("QFDF");
+
+  TH1F *h_obsF = (TH1F*)B1F->Flone();
+  h_obsF->Add(B2F);
+  h_obsF->SetName("data_obs");
+  h_obsF->SetTitle("data_obs");
+  h_obsF->Write("data_obs",TObject::kWriteDelete);
+
+
+
+  S1F->Write("signalF",TObject::kWriteDelete);
+  B1F->Write("ttbarF",TObject::kWriteDelete);
+  B2F->Write("QFDF",TObject::kWriteDelete);
+  ofstream writeF;
+  writeF.open ("DatacardF3TeV.txt");
+  writeF<<"imax 1"<<endl;
+  writeF<<"jmax 2"<<endl;
+  writeF<<"kmax *"<<endl;
+  writeF<<"---------------"<<endl;
+  writeF<<"shapes * * LimitFRS3.root $PROFESS"<<endl;
+  writeF<<"---------------"<<endl;
+  writeF<<"bin 1"<<endl;
+
+  double sig1F=S1F->Integral();
+  double obsF=B1F->Integral()+B2F->Integral();
+  double bkg1F=B1F->Integral();
+  double bkg2F=B2F->Integral();
+
+  writeF<<"observation  ";
+  writeF<<obsF<<endl;
+  writeF<<"------------------------------"<<endl;
+  writeF<<"bin             1          1          1"<<endl;
+  writeF<<"process         signalF    ttbarF     QFDF"<<endl;
+  writeF<<"process         0          1          2"<<endl;
+  writeF<<"rate            ";writeF<<sig1F<<" ";writeF<<bkg1F<<" ";writeF<<bkg2F<<endl;
+  writeF<<"--------------------------------"<<endl;
+  writeF<<"lumi     lnN    1.015       1.015         1.015"<<endl;
+  writeF<<"xsec     lnN    1.0         1.08          1.08"<<endl;
+  
+  flimitF->Close();

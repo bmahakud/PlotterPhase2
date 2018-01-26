@@ -1,0 +1,16 @@
+imax 1
+jmax 2
+kmax *
+---------------
+shapes * * LimitBRS3.root $PROCESS
+---------------
+bin 1
+observation  1724.84
+------------------------------
+bin             1          1          1
+process         signalB    ttbarB     QCDB
+process         0          1          2
+rate            128.734 72.9223 1651.91
+--------------------------------
+lumi     lnN    1.015       1.015         1.015
+xsec     lnN    1.0         1.08          1.08

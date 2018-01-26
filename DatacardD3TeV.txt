@@ -1,0 +1,16 @@
+imax 1
+jmax 2
+kmax *
+---------------
+shapes * * LimitDRS3.root $PRODESS
+---------------
+bin 1
+observation  66.6989
+------------------------------
+bin             1          1          1
+process         signalD    ttbarD     QCDD
+process         0          1          2
+rate            2.53259 0.960368 65.7386
+--------------------------------
+lumi     lnN    1.015       1.015         1.015
+xsec     lnN    1.0         1.08          1.08
